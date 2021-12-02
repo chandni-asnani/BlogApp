@@ -144,7 +144,7 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 
-
+ACCOUNT_EMAIL_VERIFICATION = "none"
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/3.2/ref/settings/#default-auto-field
@@ -155,17 +155,16 @@ REST_AUTH_REGISTER_SERIALIZERS = {
     'REGISTER_SERIALIZER': 'accounts.serializers.UserSerializer',
 }
 
+REST_USE_JWT = True
 REST_FRAMEWORK = {
-    'DEFAULT_FILTER_BACKENDS': ['django_filters.rest_framework.DjangoFilterBackend']
-}
-
-REST_FRAMEWORK = {
+    'DEFAULT_FILTER_BACKENDS': ['django_filters.rest_framework.DjangoFilterBackend'],
     'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.PageNumberPagination',
-    'PAGE_SIZE': 2
+    'PAGE_SIZE': 2,
+    "DEFAULT_AUTHENTICATION_CLASSES": [
+"rest_framework_jwt.authentication.JSONWebTokenAuthentication",
+],
 }
 
-REST_FRAMEWORK = {
-    'DEFAULT_AUTHENTICATION_CLASSES': [
-        'rest_framework_simplejwt.authentication.JWTAuthentication',
-    ],
-}
+
+
+

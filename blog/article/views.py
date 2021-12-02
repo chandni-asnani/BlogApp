@@ -7,6 +7,7 @@ from rest_framework.views import APIView
 import django_filters.rest_framework
 from rest_framework import filters
 from django_filters.rest_framework import DjangoFilterBackend
+from rest_framework import permissions
 
 
 
@@ -23,21 +24,25 @@ class ArticleList(generics.ListCreateAPIView):
     ordering_fields = ['title']
     filterset_fields = ['category']
     pagination_class = ArticleCustomPagination
+    permission_classes = [permissions.IsAuthenticated]
 
 
 
 class ArticleDetail(generics.RetrieveUpdateDestroyAPIView):
     queryset = Article.objects.all()
     serializer_class = ArticleCreateSerializer
+    permission_classes = [permissions.IsAuthenticated]
     
 
 class CategoryCreate(generics.CreateAPIView):
     queryset = Category.objects.all()
     serializer_class = CategorySerializer
+    permission_classes = [permissions.IsAuthenticated]
     
 class CategoryList(generics.ListAPIView):
     queryset = Category.objects.all()
     serializer_class = CategorySerializer
+    permission_classes = [permissions.IsAuthenticated]
     
 class CommentCreate(generics.ListCreateAPIView):
     serializer_class = CommentSerializer
